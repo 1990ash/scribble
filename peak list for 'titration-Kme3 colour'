@@ -1,0 +1,50 @@
+# File names - collect filenames 
+fname=["C:/Users/User/Desktop/NMR/500/AS-6-50A-500/1/pdata/1", 
+       "C:/Users/User/Desktop/NMR/500/AS-6-50A-500/2/pdata/1",
+       "C:/Users/User/Desktop/NMR/500/AS-6-50A-500/3/pdata/1", 
+       "C:/Users/User/Desktop/NMR/500/AS-6-50A-500/4/pdata/1"]
+
+# Plot colours
+colors_list = ['black','black','black','black'] 
+
+# Plot limits 
+# NOTE- goes higher to lower because origin on NMR axis is reversed
+limit_x = [4.5,1.0]
+
+# Plot offsets - if uncertain, turn axis for each plot 'on' and check the axis ticks
+# Has to be the same number as the files in 'fname'
+offset_y = [0,5e11,1e12,1.5e12]
+
+# Plot scale up (1 for default scale) - gets multiplies with the 1D data to increase scale
+# Has to be the same number as the files in 'fname'
+scale_y = [30,30,30,30]
+
+# Range of x-scale (ppm) and colour each sub array is for one file... the middle two are values in the tuple are used
+# find the x,y coordinate to paint.
+range_xppm = [[(3.08,2.97),(3.17,3.10), (3.96,3.80), (3.26,3.20)],
+              [(2.78,2.65),(2.81,2.65), (3.97,3.80), (3.08,2.94)],
+              [(2.54,2.40),(2.50,2.37), (4.02,3.94), (2.90,2.73)],
+              [(2.05,2.00),(2.11,1.98), (0.00,0.00), (2.62,2.47)]]
+
+range_color =[['lightcoral', 'lightsteelblue', 'darkorange', 'pink'],
+              ['lightcoral', 'lightsteelblue', 'darkorange', 'pink'],
+              ['lightcoral', 'lightsteelblue', 'darkorange', 'pink'],
+              ['lightcoral', 'lightsteelblue', 'darkorange', 'pink']]
+
+# This is to insert a dummy peak. (to show peaks overlapping or tailing off). 
+# Keep it zero if not needed. (like [0,0,0,0] 
+# Goto if c_y!=0 to see how it is used. 
+# There are 3 ways to add peak: either extrapolate ('ex') or insert a gaussian ('gau') or lorentzian ('lor') peak
+# ('gau' ,6,.25) insert a gaussina peak where 6 detemines width and 0.25 determines height
+# ('lor' ,0.16,.25) insert a gaussina peak where 0.16 detemines width and 0.25 determines height
+# ('ex',(2.88,3.3),0) extrapolates to LEFT using an exponential function. 2.88 determines the point of 
+# extrapolation and 3.3 determines the slope
+# ('ex',0,(2.30,3.5)) extrapolates to RIGHT using an exponential function. 2.88 determines the point of 
+# extrapolation and 3.3 determines the slope
+# ('ex',(2.13,3.6),(1.95,3.6)) extrapolates to BOTH sides RIGHT using exponential function, where: 
+# 2.13 determines the point of extrapolation and 3.6 determines the slope on LEFT side
+# 1.95 determines the point of extrapolation and 3.6 determines the slope on LEFT side
+dum_y = [[0, 0, 0, 0],
+         [('ex',(2.85,3.3),0), ('gau' ,5.5,.25), ('ex',(4.02,3.3),0), ('gau' ,5.5,.36)],
+         [('ex',0,(2.30,3.6)), ('gau' ,5.2,.16), ('ex',(4.06,3.3),0), ('gau' ,6.0,.18)],
+         [('ex',(2.13,3.3),(1.95,3.6)), ('gau' ,5.0,.08), 0, 0]]
